@@ -1,0 +1,15 @@
+div{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+h1 { 
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    color: #1e2124;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -430%);
+}
