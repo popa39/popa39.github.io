@@ -14,31 +14,10 @@ h1 {
     transform: translate(-50%, -430%);
 }
 
-.ff{
-    position: absolute;
-    top: 50%;
-    left: 42.5%;
-    transform: translate(-50%, 340%);
-}
-
-.piss{
-    position: absolute;
-    top: 50%;
-    left: 47.5%;
-    transform: translate(-50%, 340%);
-}
-
-.steam{
-    position: absolute;
-    top: 50%;
-    left: 52.5%;
-    transform: translate(-50%, 340%);
-}
-
 .dch{
     position: absolute;
     top: 50%;
-    left: 57.5%;
+    left: 50%;
     transform: translate(-50%, 340%);
 }
 
