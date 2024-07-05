@@ -1,3 +1,8 @@
+body{
+    background: url(assets/mama.png) no-repeat center center fixed;
+    background-size: cover;
+}
+
 h1 { 
     font-family: "Comic Sans MS", "Comic Sans", cursive;
     color: #1e2124;
