@@ -1,7 +1,7 @@
 const userId = "940977931025534976",
 	statusCafeUser = "misha";
-const LASTFM_API_KEY = "d51a838945262fe0a466c9d6f2952c60"; // Замените на ваш реальный API ключ Last.fm
-const LASTFM_USERNAME = "yavamnespotify"; // Замените на ваш юзернейм Last.fm
+const LASTFM_API_KEY = "d51a838945262fe0a466c9d6f2952c60"; 
+const LASTFM_USERNAME = "yavamnespotify"; 
 let isInitialLoad = !0;
 
 function openStatusCafeProfile() {
@@ -210,7 +210,7 @@ async function fetchLastFmActivity() {
             const track = data.recenttracks.track[0];
             const artist = track.artist["#text"];
             const title = track.name;
-            // Find the large image, or fall back to placeholder
+            
             const imageUrl = track.image.find(img => img.size === "large")?.["#text"] || PLACEHOLDER_IMAGE;
 
             lastTitle.textContent = title;
@@ -220,7 +220,7 @@ async function fetchLastFmActivity() {
             if (track["@attr"] && track["@attr"].nowplaying === "true") {
                 lastHoursAgo.textContent = "Now playing";
             } else if (track.date && track.date.uts) {
-                const uts = parseInt(track.date.uts) * 1000; // Convert to milliseconds
+                const uts = parseInt(track.date.uts) * 1000; 
                 const now = Date.now();
                 const diffMs = now - uts;
                 const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
@@ -234,7 +234,7 @@ async function fetchLastFmActivity() {
                     lastHoursAgo.textContent = "A few seconds ago";
                 }
             } else {
-                lastHoursAgo.textContent = ""; // Or a default message
+                lastHoursAgo.textContent = ""; 
             }
         } else {
             lastTitle.textContent = "No data on the last song";
@@ -261,7 +261,7 @@ document
 	.addEventListener("click", openStatusCafeProfile);
 
 fetchDiscordActivity();
-setInterval(fetchDiscordActivity, 1e3); // Update Discord activity every second
+setInterval(fetchDiscordActivity, 1e3); 
 
 fetchLastFmActivity();
-setInterval(fetchLastFmActivity, 60 * 1000); // Update Last.fm activity every minute (60 seconds)
+setInterval(fetchLastFmActivity, 60 * 1000);
