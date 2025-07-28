@@ -1,0 +1,366 @@
+@font-face {
+    font-family: 'logofont';
+    src: url('Px437_IBM_VGA_9x14.ttf') format('ttf');
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "SN Pro";
+    src: url(SNPro-Variable.woff2) format("woff2-variations");
+    font-weight: 200 900;
+    font-style: normal;
+}
+
+html {
+    background-color: #0c0d12;
+    scroll-behavior: smooth;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0 10px;
+    box-sizing: border-box;
+}
+
+.hidden {
+    opacity: 0;
+    transform: translateY(-20px);
+    pointer-events: none;
+}
+
+.loading-spinner {
+    border: 4px solid #7289da;
+    border-top: 4px solid transparent;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+#discord-widget {
+    width: max-content;
+    min-width: 350px;
+    align-items: center;
+    gap: 15px;
+}
+
+#user-info {
+    text-align: center;
+    flex: 1;
+}
+
+#avatar-container {
+    position: relative;
+    display: inline-block;
+}
+
+#avatar {
+    width: 80px;
+    border-radius: 50%;
+}
+
+#custom-status {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    padding: 4px;
+}
+
+#username {
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.status-cafe {
+    font-size: 14px;
+    color: #7289da;
+    text-decoration: underline;
+    margin-top: 5px;
+    cursor: pointer;
+}
+
+.status-cafe:hover {
+    color: #677bc4;
+}
+
+#activity-container {
+    flex: 2;
+}
+
+#activity {
+    font-size: 14px;
+    color: #99aab5;
+}
+
+#activity-cover {
+    margin-bottom: 8px;
+}
+
+#progress-container {
+    width: 100%;
+    height: 6px;
+    background-color: #444;
+    border-radius: 5px;
+    margin-top: 8px;
+    position: relative;
+}
+
+#progress-bar {
+    height: 100%;
+    background-color: #7289da;
+    border-radius: 5px;
+    width: 0%;
+    transition: width 1s linear;
+}
+
+#time-info {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #99aab5;
+}
+
+#discord-widget.no-activity {
+    justify-content: center;
+    text-align: center;
+}
+
+#discord-widget.no-activity #activity-container {
+    display: none;
+}
+
+#avatar-container::after {
+    content: "";
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 4px solid #1a1b22;
+    background-color: #747f8d;
+}
+
+#avatar-container.online::after {
+    background-color: #43b581;
+}
+
+#avatar-container.idle::after {
+    background-color: #faa61a;
+}
+
+#avatar-container.dnd::after {
+    background-color: #f04747;
+}
+
+#avatar-container.offline::after {
+    background-color: #747f8d;
+}
+
+@font-face {
+    font-family: 'logofont';
+    src: url(Web437_Master_512_bold.woff) format('woff');
+    font-display: swap;
+}
+
+body {
+    background-color: #0c0d12;
+    color: #fff;
+    font-family: "SN Pro";
+    font-weight: 600;
+    margin: 0;
+    padding: 20px;
+}
+header {
+    font-family: 'logofont';
+    font-size: 33px;
+    line-height: 1.2;
+    color: #b83c30;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.time, .theme-toggle, .visit-counter, .fol-counter, .profile, .links, .discord-activity, .last-played, .bottom, .button-preview, #discord-widget {
+    display: flex;
+    background: #1a1b22;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    justify-content: center;
+}
+
+.counters{
+    display: flex;
+    justify-content: center;
+    gap: 15px
+}
+
+.visit-counter a{
+    color: #E78A8A;
+}
+
+.fol-counter a{
+    color: #E78A8A;
+}
+
+.visit-counter{
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    font-size: 18px;
+    width: 77px;
+}
+
+.fol-counter{
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    font-size: 18px;
+    width: 77px;
+}
+
+.button-preview a{
+    font-size: 16px;
+    margin-left: 15px;
+    margin-top: 5px;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 400px;
+    margin-top: 10px;
+}
+.profile{
+    text-align: center;
+} 
+
+.links {
+    font-size: 20px;
+    flex-direction: column;
+    padding: 26px;
+    gap: 20px;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto 10px;
+}
+.mood, .status {
+    background: #1a1b22;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: #b8b8b8;
+}
+
+.last-played img{
+    display: block; 
+    width: 80px; 
+    border-radius: 10px;
+}
+
+.right-container, .left-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.last-played{
+    display: flex;
+    gap: 20px;
+}
+
+#last-played-title{
+    font-size: 14px;
+    padding-top: 1px;
+    margin-bottom: 5px;
+    color:#B58D8D;
+    flex: 0 0 auto;
+}
+
+#last-artist{
+    font-weight: 600;
+    font-size: 14px;
+}
+
+#last-hours-ago{
+    margin-top: 5px;
+    font-size: 12px;
+    color: #6F6F6F;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+#last-played a
+
+.content-widget {
+    font-family: Arial, sans-serif;
+    background-color: #1a1b22;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 450px;
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.content-info {
+    text-align: center;
+    flex: 1;
+}
+
+.content-title {
+font-size: 17px;
+font-weight: bold;
+margin-top: 10px;
+}
+
+.content-details {
+font-size: 14px;
+color: #99aab5;
+margin-top: 5px;
+}
+
+.info{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+@media (max-width: 600px) {
+    body {
+        flex-direction: column;
+        align-items: center;
+    }
+}    

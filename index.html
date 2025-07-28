@@ -1,125 +1,106 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>lol i hate pizza</title>
-    <link rel="stylesheet" href="style.css">
-    <style>
-        body { 
-            margin: 0; color: black; 
-        }
-        canvas { 
-            display: block;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        h1 {
-            position: absolute;
-            color: rgb(183, 0, 255);
-            font-family: Comic Sans MS;
-            bottom: 200px;
-            left: 300px;
-            z-index: 1;
-            animation: colorChange 1s infinite, rotate 5s linear infinite;
-            
-        }
-        td {
-            padding: 10px;
-            border: 1px solid #000;
-        }
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>sickass cereal :D</title>
+		<link rel="stylesheet" href="styles.css" />
+	</head>
+	<body>
+		<header>
+			<h1>
+				sickass
+				<br />
+				cereal:D
+			</h1>
+		</header>
 
+		<main class="main">
+			<div class="left-container">
+				<div class="links">
+					<a>📄 about me & this website</a>
+					<a>🔖 my bookmarks</a>
+					<a>📖 guestbook</a>
+					<a>📝 blog</a>
+				</div>
+				<div class="button-preview">
+					<img src="blackborders.gif" />
+					<a><-- my cool button!!</a>
+				</div>
+				<div class="counters">
+					<div class="visit-counter">
+						<a>456</a>
+						<a2>visitors</a2>
+					</div>
+					<div class="fol-counter">
+						<a>1</a>
+						<a2>followers</a2>
+					</div>
+				</div>
+			</div>
+			<div class="right-container">
+				<div id="discord-widget">
+					<div id="loading-spinner" class="loading-spinner"></div>
+					<div id="user-info" style="display:none">
+						<div id="avatar-container">
+							<img alt="Avatar" src="" id="avatar" />
+							<img
+								alt="Custom Status"
+								src=""
+								id="custom-status"
+								style="display:none"
+							/>
+						</div>
+						<div id="username">Loading...</div>
+					</div>
+					<div id="activity-container" style="display:none">
+						<div id="activity">
+							<img
+								alt="Track Cover"
+								src=""
+								id="activity-cover"
+								style="display:none;width:80px;height:80px;border-radius:8px"
+							/>
+							<div id="activity-name"></div>
+							<div id="activity-details"></div>
+							<div id="progress-container" style="display:none">
+								<div id="progress-bar"></div>
+							</div>
+							<div id="time-info" style="display:none">
+								<span id="time-start">0:00</span>
+								<span id="time-end">0:00</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="last-played">
+					<img
+						alt="track cover"
+						src="placeholder.png"
+						id="last-activity-cover"
+					/>
+					<div class="info">
+						<div id="last-played-title">last played:</div>
+						<div id="last-title">22lorem ipsum</div>
+						<div id="last-artist">goreshesh</div>
+						<div id="last-hours-ago">12 hours ago</div>
+					</div>
+				</div>
+				<div id="status-cafe" class="status-cafe">
+					Loading status...
+				</div>
+			</div>
+		</main>
 
-        @keyframes colorChange {
-            0% { color: red; }
-            25% { color: blue; }
-            50% { color: green; }
-            75% { color: orange; }
-            100% { color: red; }
-        }
+		<footer>
+			<div class="bottom">
+				<span>
+					ничего не работаттет. даже не пытайтесь искать секретики
+					пасхалочки
+				</span>
+			</div>
+		</footer>
 
-        @keyframes rotate {
-            from { transform: translateX(-50%) rotate(0deg); }
-            to { transform: translateX(-50%) rotate(360deg); }
-        }
-    </style>
-    <script type="importmap">
-    {
-        "imports": {
-            "three": "https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.module.js",
-            "GLTFLoader": "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/jsm/loaders/GLTFLoader.js"
-        }
-    }
-    </script>
-    <script src="https://unpkg.com/es-module-shims@1.6.0/dist/es-module-shims.js"></script>
-</head>
-<body>
-
-    <h1>пошел нахуй лололллл:3333</h1>
-
-
-    <script type="module">
-        import * as THREE from 'three';
-        import { GLTFLoader } from 'GLTFLoader';
-
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
-
-
-        const textureLoader = new THREE.TextureLoader();
-        textureLoader.load('image.jpg', (texture) => {
-            const aspect = texture.image.width / texture.image.height;
-            const backgroundGeometry = new THREE.PlaneGeometry(aspect * 2, 2);
-            const backgroundMaterial = new THREE.MeshBasicMaterial({ 
-                map: texture, 
-                side: THREE.DoubleSide 
-            });
-            const backgroundMesh = new THREE.Mesh(backgroundGeometry, backgroundMaterial);
-            backgroundMesh.position.z = -5;
-            scene.add(backgroundMesh);
-        });
-
-        const loader = new GLTFLoader();
-        let model;
-
-        loader.load('model.glb', (gltf) => {
-            model = gltf.scene;
-            scene.add(model);
-            model.position.set(-0.5, 5, -5);
-
-            animate();
-        }, undefined, function (error) {
-            console.error('Произошла ошибка при загрузке модели:', error);
-        });
-
-        const ambientLight = new THREE.AmbientLight(0xffffff, 1.5);
-        scene.add(ambientLight);
-
-        const pointLight = new THREE.PointLight(0xffffff, 2);
-        pointLight.position.set(10, 10, 10);
-        scene.add(pointLight);
-
-        camera.position.z = 2;
-
-        function animate() {
-            requestAnimationFrame(animate);
-            if (model) {
-                model.rotation.y += 0.01;
-            }
-            renderer.render(scene, camera);
-        }
-
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        });
-    </script>
-</body>
+		<script src="script.js"></script>
+	</body>
 </html>

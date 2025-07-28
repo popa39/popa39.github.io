@@ -1,0 +1,18 @@
+
+.site-box {
+    text-align: center;
+    background-image: url(/static/assets/cookiebox.png);
+    background-repeat: no-repeat;
+    color: #b08271;
+    font-size: 12px;
+}
+.site-box > a > p {
+    color: var(--darkbrown);
+    font-weight: bold;
+}
+.site-box > a > span {
+    color: var(--darkbrown);
+}
+
+.follow {
+}
