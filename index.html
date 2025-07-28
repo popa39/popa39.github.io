@@ -27,16 +27,6 @@
 					<img src="blackborders.gif" />
 					<a><-- my cool button!!</a>
 				</div>
-				<div class="counters">
-					<div class="visit-counter">
-						<a>456</a>
-						<a2>visitors</a2>
-					</div>
-					<div class="fol-counter">
-						<a>1</a>
-						<a2>followers</a2>
-					</div>
-				</div>
 			</div>
 			<div class="right-container">
 				<div id="discord-widget">
@@ -61,8 +51,8 @@
 								id="activity-cover"
 								style="display:none;width:80px;height:80px;border-radius:8px"
 							/>
-							<div id="activity-name"></div>
-							<div id="activity-details"></div>
+							<div class="tooltip"><div id="activity-name" class="truncate"><span class="tooltiptext"></span></div></div>
+							<div class="tooltip"><div id="activity-details" class="truncate"><span class="tooltiptext"></span></div></div>
 							<div id="progress-container" style="display:none">
 								<div id="progress-bar"></div>
 							</div>
@@ -81,14 +71,12 @@
 					/>
 					<div class="info">
 						<div id="last-played-title">last played:</div>
-						<div id="last-title">22lorem ipsum</div>
-						<div id="last-artist">goreshesh</div>
+						<div class="tooltip"><div id="last-title" class="truncate">22lorem ipsum<span class="tooltiptext">22lorem ipsum</span></div></div>
+						<div class="tooltip"><div id="last-artist" class="truncate">goreshesh<span class="tooltiptext">goreshesh</span></div></div>
 						<div id="last-hours-ago">12 hours ago</div>
 					</div>
 				</div>
-				<div id="status-cafe" class="status-cafe">
-					Loading status...
-				</div>
+				<div id="status-cafe" class="status-cafe tooltip"><div class="truncate">Loading status...<span class="tooltiptext">Loading status...</span></div></div>
 			</div>
 		</main>
 

@@ -25,6 +25,10 @@ body {
     margin: 0;
     padding: 0 10px;
     box-sizing: border-box;
+    background-color: #0c0d12;
+    color: #fff;
+    font-family: "SN Pro";
+    font-weight: 600;
 }
 
 .hidden {
@@ -52,11 +56,53 @@ body {
     }
 }
 
+/* Truncate text with ellipsis */
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 200px;
+    position: relative;
+}
+
+/* Tooltip styles */
+.tooltip {
+    position: relative;
+    display: inline-block;
+}
+
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: max-content;
+    max-width: 300px;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    opacity: 0;
+    transition: opacity 0.3s;
+    font-size: 14px;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+    opacity: 1;
+}
+
 #discord-widget {
     width: max-content;
     min-width: 350px;
     align-items: center;
     gap: 15px;
+    max-width: 350px;
 }
 
 #user-info {
@@ -88,6 +134,7 @@ body {
     font-size: 16px;
     font-weight: bold;
     margin-top: 10px;
+    cursor: pointer;
 }
 
 .status-cafe {
@@ -177,20 +224,6 @@ body {
     background-color: #747f8d;
 }
 
-@font-face {
-    font-family: 'logofont';
-    src: url(Web437_Master_512_bold.woff) format('woff');
-    font-display: swap;
-}
-
-body {
-    background-color: #0c0d12;
-    color: #fff;
-    font-family: "SN Pro";
-    font-weight: 600;
-    margin: 0;
-    padding: 20px;
-}
 header {
     font-family: 'logofont';
     font-size: 33px;
@@ -291,7 +324,6 @@ header {
     align-items: center;
 }
 
-
 .last-played{
     display: flex;
     gap: 20px;
@@ -318,8 +350,6 @@ header {
     font-size: 13px;
 }
 
-#last-played a
-
 .content-widget {
     font-family: Arial, sans-serif;
     background-color: #1a1b22;
@@ -341,15 +371,15 @@ header {
 }
 
 .content-title {
-font-size: 17px;
-font-weight: bold;
-margin-top: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    margin-top: 10px;
 }
 
 .content-details {
-font-size: 14px;
-color: #99aab5;
-margin-top: 5px;
+    font-size: 14px;
+    color: #99aab5;
+    margin-top: 5px;
 }
 
 .info{
@@ -363,4 +393,10 @@ margin-top: 5px;
         flex-direction: column;
         align-items: center;
     }
-}    
+    .main {
+        gap: 20px;
+    }
+    .truncate {
+        max-width: 150px;
+    }
+}

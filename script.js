@@ -1,5 +1,7 @@
 const userId = "940977931025534976",
 	statusCafeUser = "misha";
+const LASTFM_API_KEY = "d51a838945262fe0a466c9d6f2952c60"; // Замените на ваш реальный API ключ Last.fm
+const LASTFM_USERNAME = "yavamnespotify"; // Замените на ваш юзернейм Last.fm
 let isInitialLoad = !0;
 
 function openStatusCafeProfile() {
@@ -192,6 +194,64 @@ async function fetchDiscordActivity() {
 	}
 }
 
+async function fetchLastFmActivity() {
+    const lastActivityCover = document.getElementById("last-activity-cover");
+    const lastTitle = document.getElementById("last-title");
+    const lastArtist = document.getElementById("last-artist");
+    const lastHoursAgo = document.getElementById("last-hours-ago");
+
+    try {
+        const response = await fetch(
+            `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LASTFM_USERNAME}&api_key=${LASTFM_API_KEY}&format=json&limit=1`
+        );
+        const data = await response.json();
+
+        if (data.recenttracks && data.recenttracks.track.length > 0) {
+            const track = data.recenttracks.track[0];
+            const artist = track.artist["#text"];
+            const title = track.name;
+            // Find the large image, or fall back to placeholder
+            const imageUrl = track.image.find(img => img.size === "large")?.["#text"] || PLACEHOLDER_IMAGE;
+
+            lastTitle.textContent = title;
+            lastArtist.textContent = artist;
+            lastActivityCover.src = imageUrl;
+
+            if (track["@attr"] && track["@attr"].nowplaying === "true") {
+                lastHoursAgo.textContent = "Now playing";
+            } else if (track.date && track.date.uts) {
+                const uts = parseInt(track.date.uts) * 1000; // Convert to milliseconds
+                const now = Date.now();
+                const diffMs = now - uts;
+                const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+                const diffMinutes = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+
+                if (diffHours > 0) {
+                    lastHoursAgo.textContent = `${diffHours} hour${diffHours === 1 ? '' : 's'} ago`;
+                } else if (diffMinutes > 0) {
+                    lastHoursAgo.textContent = `${diffMinutes} minute${diffMinutes === 1 ? 's' : ''} ago`;
+                } else {
+                    lastHoursAgo.textContent = "A few seconds ago";
+                }
+            } else {
+                lastHoursAgo.textContent = ""; // Or a default message
+            }
+        } else {
+            lastTitle.textContent = "No data on the last song";
+            lastArtist.textContent = "";
+            lastHoursAgo.textContent = "";
+            lastActivityCover.src = PLACEHOLDER_IMAGE;
+        }
+    } catch (error) {
+        console.error("Error fetching Last.fm activity:", error);
+        lastTitle.textContent = "Loading error";
+        lastArtist.textContent = "";
+        lastHoursAgo.textContent = "";
+        lastActivityCover.src = PLACEHOLDER_IMAGE;
+    }
+}
+
+
 document.getElementById("username").addEventListener("click", () => {
 	window.open(`https://discord.com/users/${userId}`, "_blank");
 });
@@ -201,4 +261,7 @@ document
 	.addEventListener("click", openStatusCafeProfile);
 
 fetchDiscordActivity();
-setInterval(fetchDiscordActivity, 1e3);
+setInterval(fetchDiscordActivity, 1e3); // Update Discord activity every second
+
+fetchLastFmActivity();
+setInterval(fetchLastFmActivity, 60 * 1000); // Update Last.fm activity every minute (60 seconds)
