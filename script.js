@@ -10,15 +10,15 @@ function openStatusCafeProfile() {
     window.open("https://status.cafe/users/misha", "_blank");
 }
 
-// Часы UTC+9
+
 function updateUTCTime() {
     const now = new Date();
     
-    // UTC+9 часов
+    
     const utcOffset = 9 * 60 * 60 * 1000;
     const utc9Time = new Date(now.getTime() + utcOffset);
     
-    // Форматирование времени
+    
     const hours = utc9Time.getUTCHours().toString().padStart(2, '0');
     const minutes = utc9Time.getUTCMinutes().toString().padStart(2, '0');
     const seconds = utc9Time.getUTCSeconds().toString().padStart(2, '0');
@@ -26,7 +26,7 @@ function updateUTCTime() {
     document.getElementById('utc-time').textContent = `${hours}:${minutes}:${seconds}`;
 }
 
-// Обновляем сразу и запускаем интервал
+
 updateUTCTime();
 setInterval(updateUTCTime, 1000);
 
