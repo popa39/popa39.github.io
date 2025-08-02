@@ -1,197 +1,213 @@
 const userId = "940977931025534976",
-	statusCafeUser = "misha";
+    statusCafeUser = "misha";
 const LASTFM_API_KEY = "d51a838945262fe0a466c9d6f2952c60"; 
 const LASTFM_USERNAME = "yavamnespotify"; 
-let isInitialLoad = !0;
-
-function openStatusCafeProfile() {
-	window.open("https://status.cafe/users/misha", "_blank");
-}
+let isInitialLoadDiscord = true;
+let isInitialLoadLastFm = true;
 const PLACEHOLDER_IMAGE = "placeholder.png";
 
+function openStatusCafeProfile() {
+    window.open("https://status.cafe/users/misha", "_blank");
+}
+
+// Часы UTC+9
+function updateUTCTime() {
+    const now = new Date();
+    
+    // UTC+9 часов
+    const utcOffset = 9 * 60 * 60 * 1000;
+    const utc9Time = new Date(now.getTime() + utcOffset);
+    
+    // Форматирование времени
+    const hours = utc9Time.getUTCHours().toString().padStart(2, '0');
+    const minutes = utc9Time.getUTCMinutes().toString().padStart(2, '0');
+    const seconds = utc9Time.getUTCSeconds().toString().padStart(2, '0');
+    
+    document.getElementById('utc-time').textContent = `${hours}:${minutes}:${seconds}`;
+}
+
+// Обновляем сразу и запускаем интервал
+updateUTCTime();
+setInterval(updateUTCTime, 1000);
+
 async function fetchDiscordActivity() {
-	const t = document.getElementById("loading-spinner"),
-		e = document.getElementById("user-info"),
-		n = document.getElementById("activity-container"),
-		a = document.getElementById("discord-widget");
+    const spinner = document.getElementById("loading-spinner"),
+        userInfo = document.getElementById("user-info"),
+        activityContainer = document.getElementById("activity-container"),
+        widget = document.getElementById("discord-widget");
 
-	isInitialLoad &&
-		((t.style.display = "block"),
-		(e.style.display = "none"),
-		(n.style.display = "none"));
-	try {
-		const t = await fetch(`https://api.lanyard.rest/v1/users/${userId}`),
-			e = await t.json();
-		if (e.success) {
-			const t = e.data,
-				s = `https://cdn.discordapp.com/avatars/${userId}/${t.discord_user.avatar}.png`,
-				o = t.discord_user.username,
-				i = (t.discord_status, t.activities);
-			document.getElementById("avatar").src = s;
-			const usernameElement = document.getElementById("username");
-			usernameElement.textContent = o;
-			usernameElement.style.cursor = "pointer";
+    if (isInitialLoadDiscord) {
+        spinner.style.display = "block";
+        userInfo.style.display = "none";
+        activityContainer.style.display = "none";
+    }
 
-			try {
-				const t = await fetch(
-					"https://status.cafe/users/misha/status.json",
-				);
-				if (!t.ok) throw new Error(`HTTP error! Status: ${t.status}`);
-				const e = await t.json();
-				if (e && e.content) {
-					const t = `${e.author} ${e.face || ""}: ${e.content}`;
-					document.getElementById("status-cafe").textContent = t;
-				} else
-					document.getElementById("status-cafe").textContent =
-						"misha: No status";
-			} catch (t) {
-				console.error("Error fetching status.cafe data:", t),
-					(document.getElementById("status-cafe").textContent =
-						"misha: Status unavailable");
-			}
-			const c = i.find((t) => "Spotify" === t.name),
-				d = i.find((t) => "foobar2000" === t.name),
-				l = i.find((t) => 0 === t.type),
-				m = c || d || l;
-			if (m) {
-				const {
-					details: t,
-					state: e,
-					assets: s,
-					timestamps: o,
-					name: i,
-				} = m;
-				if (0 === m.type)
-					if (
-						((document.getElementById("activity-name").textContent =
-							i || "Playing a game"),
-						(document.getElementById(
-							"activity-details",
-						).textContent = t || ""),
-						s?.large_image)
-					) {
-						const t = s.large_image.startsWith("mp:external/")
-							? s.large_image.replace(
-									"mp:external/",
-									"https://media.discordapp.net/external/",
-								)
-							: `https://cdn.discordapp.com/app-assets/${m.application_id}/${s.large_image}.png`;
-						(document.getElementById("activity-cover").src = t),
-							(document.getElementById(
-								"activity-cover",
-							).style.display = "block");
-					} else
-						(document.getElementById("activity-cover").src =
-							"placeholder.png"),
-							(document.getElementById(
-								"activity-cover",
-							).style.display = "block");
-				else {
-					(document.getElementById("activity-name").textContent =
-						t || ""),
-						(document.getElementById(
-							"activity-details",
-						).textContent = e || "");
-					let n = "";
-					s?.large_image &&
-						("Spotify" === m.name
-							? (n = `https://i.scdn.co/image/${s.large_image.replace("spotify:", "")}`)
-							: "foobar2000" === m.name &&
-								(n = s.large_image.startsWith("mp:external/")
-									? s.large_image.replace(
-											"mp:external/",
-											"https://media.discordapp.net/external/",
-										)
-									: `https://cdn.discordapp.com/app-assets/${m.application_id}/${s.large_image}.png`)),
-						n
-							? ((document.getElementById("activity-cover").src =
-									n),
-								(document.getElementById(
-									"activity-cover",
-								).style.display = "block"))
-							: (document.getElementById(
-									"activity-cover",
-								).style.display = "none");
-				}
-				if (o && o.start && o.end) {
-					const t = o.start,
-						e = o.end,
-						n = Date.now(),
-						a = Math.min(100, ((n - t) / (e - t)) * 100);
-					document.getElementById("progress-bar").style.width =
-						`${a}%`;
-					const s = (t) => {
-							const e = Math.floor(t / 1e3);
-							return `${Math.floor(e / 60)}:${String(e % 60).padStart(2, "0")}`;
-						},
-						i = n - t;
-					document.getElementById("time-start").textContent = s(i);
-					const c = e - t;
-					(document.getElementById("time-end").textContent = s(c)),
-						(document.getElementById(
-							"progress-container",
-						).style.display = "block"),
-						(document.getElementById("time-info").style.display =
-							"flex");
-				} else
-					(document.getElementById(
-						"progress-container",
-					).style.display = "none"),
-						(document.getElementById("time-info").style.display =
-							"none");
-				a.classList.remove("no-activity"), (n.style.display = "block");
-			} else
-				(document.getElementById("activity-name").textContent = ""),
-					(document.getElementById("activity-details").textContent =
-						""),
-					(document.getElementById("activity-cover").style.display =
-						"none"),
-					(document.getElementById(
-						"progress-container",
-					).style.display = "none"),
-					(document.getElementById("time-info").style.display =
-						"none"),
-					a.classList.add("no-activity"),
-					(n.style.display = "none");
-			const r = i.find((t) => 4 === t.type);
-			if (r && r.emoji) {
-				const t = r.emoji.animated
-					? `https://cdn.discordapp.com/emojis/${r.emoji.id}.gif`
-					: `https://cdn.discordapp.com/emojis/${r.emoji.id}.png`;
-				(document.getElementById("custom-status").src = t),
-					(document.getElementById("custom-status").style.display =
-						"block");
-			} else
-				document.getElementById("custom-status").style.display = "none";
-			const avatarContainer = document.getElementById("avatar-container");
-			avatarContainer.classList.remove(
-				"online",
-				"idle",
-				"dnd",
-				"offline",
-			);
-			switch (t.discord_status) {
-				case "online":
-					avatarContainer.classList.add("online");
-					break;
-				case "idle":
-					avatarContainer.classList.add("idle");
-					break;
-				case "dnd":
-					avatarContainer.classList.add("dnd");
-					break;
-				default:
-					avatarContainer.classList.add("offline");
-			}
-		} else console.error("Failed to fetch data from Lanyard API");
-	} catch (t) {
-		console.error("Error fetching data:", t);
-	} finally {
-		isInitialLoad &&
-			((t.style.display = "none"),
-			(e.style.display = "block"),
-			(isInitialLoad = !1));
-	}
+    try {
+        const response = await fetch(`https://api.lanyard.rest/v1/users/${userId}`);
+        const data = await response.json();
+        
+        if (data.success) {
+            const userData = data.data,
+                avatarUrl = `https://cdn.discordapp.com/avatars/${userId}/${userData.discord_user.avatar}.png`,
+                username = userData.discord_user.username;
+            
+            document.getElementById("avatar").src = avatarUrl;
+            const usernameElement = document.getElementById("username");
+            usernameElement.textContent = username;
+            usernameElement.style.cursor = "pointer";
+
+            try {
+                const statusResponse = await fetch("https://status.cafe/users/misha/status.json");
+                if (!statusResponse.ok) throw new Error(`HTTP error! Status: ${statusResponse.status}`);
+                const statusData = await statusResponse.json();
+                
+                const statusElement = document.getElementById("status-cafe");
+                const statusContent = statusElement.querySelector(".truncate");
+                const statusTooltip = statusElement.querySelector(".tooltiptext");
+                
+                if (statusData && statusData.content) {
+                    const statusText = `${statusData.author} ${statusData.face || ""}: ${statusData.content}`;
+                    statusContent.innerHTML = `<span class="author">${statusData.author} ${statusData.face || ""}</span>: <span class="status-text">${statusData.content}</span>`;
+                    if (statusTooltip) statusTooltip.textContent = statusText;
+                } else {
+                    const defaultText = "misha: No status";
+                    statusContent.innerHTML = `<span class="author">misha</span>: <span class="status-text">No status</span>`;
+                    if (statusTooltip) statusTooltip.textContent = defaultText;
+                }
+            } catch (error) {
+                console.error("Error fetching status.cafe data:", error);
+                const statusElement = document.getElementById("status-cafe");
+                const statusContent = statusElement.querySelector(".truncate");
+                const statusTooltip = statusElement.querySelector(".tooltiptext");
+                const errorText = "misha: Status unavailable";
+                statusContent.innerHTML = `<span class="author">misha</span>: <span class="status-text">Status unavailable</span>`;
+                if (statusTooltip) statusTooltip.textContent = errorText;
+            }
+
+            const spotifyActivity = userData.activities.find(a => a.name === "Spotify");
+            const foobarActivity = userData.activities.find(a => a.name === "foobar2000");
+            const gameActivity = userData.activities.find(a => a.type === 0);
+            const currentActivity = spotifyActivity || foobarActivity || gameActivity;
+
+            if (currentActivity) {
+                const { details, state, assets, timestamps, name } = currentActivity;
+                
+                if (currentActivity.type === 0) {
+                    document.getElementById("activity-name").textContent = name || "Playing a game";
+                    document.getElementById("activity-details").textContent = details || "";
+                    
+                    if (assets?.large_image) {
+                        const imageUrl = assets.large_image.startsWith("mp:external/")
+                            ? assets.large_image.replace("mp:external/", "https://media.discordapp.net/external/")
+                            : `https://cdn.discordapp.com/app-assets/${currentActivity.application_id}/${assets.large_image}.png`;
+                        
+                        document.getElementById("activity-cover").src = imageUrl;
+                        document.getElementById("activity-cover").style.display = "block";
+                    } else {
+                        document.getElementById("activity-cover").src = PLACEHOLDER_IMAGE;
+                        document.getElementById("activity-cover").style.display = "block";
+                    }
+                } else {
+                    document.getElementById("activity-name").textContent = details || "";
+                    document.getElementById("activity-details").textContent = state || "";
+                    
+                    let imageUrl = "";
+                    if (assets?.large_image) {
+                        if (currentActivity.name === "Spotify") {
+                            imageUrl = `https://i.scdn.co/image/${assets.large_image.replace("spotify:", "")}`;
+                        } else if (currentActivity.name === "foobar2000") {
+                            imageUrl = assets.large_image.startsWith("mp:external/")
+                                ? assets.large_image.replace("mp:external/", "https://media.discordapp.net/external/")
+                                : `https://cdn.discordapp.com/app-assets/${currentActivity.application_id}/${assets.large_image}.png`;
+                        }
+                    }
+                    
+                    if (imageUrl) {
+                        document.getElementById("activity-cover").src = imageUrl;
+                        document.getElementById("activity-cover").style.display = "block";
+                    } else {
+                        document.getElementById("activity-cover").style.display = "none";
+                    }
+                }
+
+                if (timestamps && timestamps.start && timestamps.end) {
+                    const start = timestamps.start;
+                    const end = timestamps.end;
+                    const now = Date.now();
+                    const progress = Math.min(100, ((now - start) / (end - start)) * 100);
+                    
+                    document.getElementById("progress-bar").style.width = `${progress}%`;
+                    
+                    const formatTime = (timestamp) => {
+                        const seconds = Math.floor(timestamp / 1000);
+                        return `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
+                    };
+                    
+                    const elapsed = now - start;
+                    document.getElementById("time-start").textContent = formatTime(elapsed);
+                    
+                    const total = end - start;
+                    document.getElementById("time-end").textContent = formatTime(total);
+                    
+                    document.getElementById("progress-container").style.display = "block";
+                    document.getElementById("time-info").style.display = "flex";
+                } else {
+                    document.getElementById("progress-container").style.display = "none";
+                    document.getElementById("time-info").style.display = "none";
+                }
+                
+                widget.classList.remove("no-activity");
+                activityContainer.style.display = "block";
+            } else {
+                document.getElementById("activity-name").textContent = "";
+                document.getElementById("activity-details").textContent = "";
+                document.getElementById("activity-cover").style.display = "none";
+                document.getElementById("progress-container").style.display = "none";
+                document.getElementById("time-info").style.display = "none";
+                widget.classList.add("no-activity");
+                activityContainer.style.display = "none";
+            }
+
+            const customStatus = userData.activities.find(a => a.type === 4);
+            if (customStatus && customStatus.emoji) {
+                const emojiUrl = customStatus.emoji.animated
+                    ? `https://cdn.discordapp.com/emojis/${customStatus.emoji.id}.gif`
+                    : `https://cdn.discordapp.com/emojis/${customStatus.emoji.id}.png`;
+                
+                document.getElementById("custom-status").src = emojiUrl;
+                document.getElementById("custom-status").style.display = "block";
+            } else {
+                document.getElementById("custom-status").style.display = "none";
+            }
+
+            const avatarContainer = document.getElementById("avatar-container");
+            avatarContainer.classList.remove("online", "idle", "dnd", "offline");
+            
+            switch (userData.discord_status) {
+                case "online":
+                    avatarContainer.classList.add("online");
+                    break;
+                case "idle":
+                    avatarContainer.classList.add("idle");
+                    break;
+                case "dnd":
+                    avatarContainer.classList.add("dnd");
+                    break;
+                default:
+                    avatarContainer.classList.add("offline");
+            }
+        } else {
+            console.error("Failed to fetch data from Lanyard API");
+        }
+    } catch (error) {
+        console.error("Error fetching Discord data:", error);
+    } finally {
+        if (isInitialLoadDiscord) {
+            spinner.style.display = "none";
+            userInfo.style.display = "block";
+            isInitialLoadDiscord = false;
+        }
+    }
 }
 
 async function fetchLastFmActivity() {
@@ -199,6 +215,16 @@ async function fetchLastFmActivity() {
     const lastTitle = document.getElementById("last-title");
     const lastArtist = document.getElementById("last-artist");
     const lastHoursAgo = document.getElementById("last-hours-ago");
+    const lastFmSpinner = document.getElementById("lastfm-loading-spinner");
+    const lastPlayedInfo = document.getElementById("last-played-info");
+    const lastPlayedWidget = document.querySelector(".last-played");
+
+    if (isInitialLoadLastFm) {
+        lastPlayedWidget.classList.add("loading");
+        lastFmSpinner.style.display = "block";
+        lastActivityCover.style.display = "none";
+        lastPlayedInfo.style.display = "none";
+    }
 
     try {
         const response = await fetch(
@@ -217,6 +243,12 @@ async function fetchLastFmActivity() {
             lastArtist.textContent = artist;
             lastActivityCover.src = imageUrl;
 
+            const titleTooltip = lastTitle.parentElement.querySelector('.tooltiptext');
+            const artistTooltip = lastArtist.parentElement.querySelector('.tooltiptext');
+            
+            if (titleTooltip) titleTooltip.textContent = title;
+            if (artistTooltip) artistTooltip.textContent = artist;
+
             if (track["@attr"] && track["@attr"].nowplaying === "true") {
                 lastHoursAgo.textContent = "Now playing";
             } else if (track.date && track.date.uts) {
@@ -229,18 +261,22 @@ async function fetchLastFmActivity() {
                 if (diffHours > 0) {
                     lastHoursAgo.textContent = `${diffHours} hour${diffHours === 1 ? '' : 's'} ago`;
                 } else if (diffMinutes > 0) {
-                    lastHoursAgo.textContent = `${diffMinutes} minute${diffMinutes === 1 ? 's' : ''} ago`;
+                    lastHoursAgo.textContent = `${diffMinutes} minute${diffMinutes === 1 ? '' : 's'} ago`;
                 } else {
                     lastHoursAgo.textContent = "A few seconds ago";
                 }
             } else {
                 lastHoursAgo.textContent = ""; 
             }
+            lastActivityCover.style.display = "block";
+            lastPlayedInfo.style.display = "flex";
         } else {
             lastTitle.textContent = "No data on the last song";
             lastArtist.textContent = "";
             lastHoursAgo.textContent = "";
             lastActivityCover.src = PLACEHOLDER_IMAGE;
+            lastActivityCover.style.display = "block";
+            lastPlayedInfo.style.display = "flex";
         }
     } catch (error) {
         console.error("Error fetching Last.fm activity:", error);
@@ -248,20 +284,25 @@ async function fetchLastFmActivity() {
         lastArtist.textContent = "";
         lastHoursAgo.textContent = "";
         lastActivityCover.src = PLACEHOLDER_IMAGE;
+        lastActivityCover.style.display = "block";
+        lastPlayedInfo.style.display = "flex";
+    } finally {
+        if (isInitialLoadLastFm) {
+            lastFmSpinner.style.display = "none";
+            lastPlayedWidget.classList.remove("loading");
+            isInitialLoadLastFm = false;
+        }
     }
 }
 
-
 document.getElementById("username").addEventListener("click", () => {
-	window.open(`https://discord.com/users/${userId}`, "_blank");
+    window.open(`https://discord.com/users/${userId}`, "_blank");
 });
 
-document
-	.getElementById("status-cafe")
-	.addEventListener("click", openStatusCafeProfile);
+document.getElementById("status-cafe").addEventListener("click", openStatusCafeProfile);
 
 fetchDiscordActivity();
-setInterval(fetchDiscordActivity, 1e3); 
+setInterval(fetchDiscordActivity, 1000); 
 
 fetchLastFmActivity();
-setInterval(fetchLastFmActivity, 60 * 1000);
+setInterval(fetchLastFmActivity, 60000);

@@ -3,17 +3,23 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>sickass cereal :D</title>
+		<title> ♡＼(￣▽￣)／♡</title>
 		<link rel="stylesheet" href="styles.css" />
 	</head>
 	<body>
-		<header>
-			<h1>
-				sickass
-				<br />
-				cereal:D
-			</h1>
-		</header>
+<header>
+    <div class="header-content">
+        <h1>
+            sickass
+            <br />
+            cereal:D
+        </h1>
+        <div id="utc-clock" class="utc-clock-widget">
+            <span id="utc-time"></span>
+            <span class="utc-label">my time</span>
+        </div>
+    </div>
+</header>
 
 		<main class="main">
 			<div class="left-container">
@@ -27,7 +33,9 @@
 					<img src="blackborders.gif" />
 					<a><-- my cool button!!</a>
 				</div>
+				<div id="status-cafe" class="status-cafe tooltip"><div class="truncate">Loading status...<span class="tooltiptext">Loading status...</span></div></div>
 			</div>
+			
 			<div class="right-container">
 				<div id="discord-widget">
 					<div id="loading-spinner" class="loading-spinner"></div>
@@ -64,27 +72,34 @@
 					</div>
 				</div>
 				<div class="last-played">
+					<div id="lastfm-loading-spinner" class="loading-spinner"></div>
 					<img
 						alt="track cover"
 						src="placeholder.png"
 						id="last-activity-cover"
+						style="display:none;"
 					/>
-					<div class="info">
+					<div class="info" id="last-played-info" style="display:none;">
 						<div id="last-played-title">last played:</div>
-						<div class="tooltip"><div id="last-title" class="truncate">22lorem ipsum<span class="tooltiptext">22lorem ipsum</span></div></div>
-						<div class="tooltip"><div id="last-artist" class="truncate">goreshesh<span class="tooltiptext">goreshesh</span></div></div>
-						<div id="last-hours-ago">12 hours ago</div>
+						<div class="tooltip">
+							<div id="last-title" class="truncate"></div>
+							<span class="tooltiptext"></span>
+						</div>
+						<div class="tooltip">
+							<div id="last-artist" class="truncate"></div>
+							<span class="tooltiptext"></span>
+						</div>
+						<div id="last-hours-ago"></div>
 					</div>
 				</div>
-				<div id="status-cafe" class="status-cafe tooltip"><div class="truncate">Loading status...<span class="tooltiptext">Loading status...</span></div></div>
+				
 			</div>
 		</main>
 
 		<footer>
 			<div class="bottom">
 				<span>
-					ничего не работаттет. даже не пытайтесь искать секретики
-					пасхалочки
+					всем привет!!! ^_^
 				</span>
 			</div>
 		</footer>

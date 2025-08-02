@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'logofont';
-    src: url('WebPlus_IBM_VGA_9x14.woff') format('ttf');
+    src: url('Web437_Master_512_bold.woff') format('woff');
     font-display: swap;
 }
 
@@ -137,12 +137,45 @@ body {
     cursor: pointer;
 }
 
+#username:hover {
+    color: #99aab5;
+}
+
 .status-cafe {
     font-size: 14px;
-    color: #7289da;
-    text-decoration: underline;
-    margin-top: 5px;
     cursor: pointer;
+    background: #1a1b22;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    width: max-content;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.status-cafe .author {
+    color: #B58D8D;
+    font-weight: 600;
+}
+
+.status-cafe .status-text {
+    color: #ffffff;
+}
+
+.status-cafe:hover .author {
+    color: #E78A8A;
+}
+
+.status-cafe:hover .status-text {
+    color: #99aab5;
+}
+
+.status-cafe .truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 300px;
+    display: inline-block;
 }
 
 .status-cafe:hover {
@@ -173,7 +206,7 @@ body {
 
 #progress-bar {
     height: 100%;
-    background-color: #7289da;
+    background-color: #B58D8D;
     border-radius: 5px;
     width: 0%;
     transition: width 1s linear;
@@ -233,7 +266,7 @@ header {
     margin-bottom: 50px;
 }
 
-.time, .theme-toggle, .visit-counter, .fol-counter, .profile, .links, .discord-activity, .last-played, .bottom, .button-preview, #discord-widget {
+.time, .theme-toggle, .visit-counter, .fol-counter, .profile, .links, .discord-activity, .last-played, .bottom, .button-preview, #discord-widget, #status-cafe  {
     display: flex;
     background: #1a1b22;
     padding: 15px;
@@ -327,7 +360,33 @@ header {
 .last-played{
     display: flex;
     gap: 20px;
+    /* Added for spinner alignment */
+    align-items: center; 
+    justify-content: center; 
 }
+
+/* New styles for Last.fm widget loading */
+.last-played.loading #lastfm-loading-spinner {
+    display: block;
+}
+
+.last-played.loading #last-activity-cover,
+.last-played.loading #last-played-info {
+    display: none;
+}
+
+.last-played:not(.loading) #lastfm-loading-spinner {
+    display: none;
+}
+
+.last-played:not(.loading) #last-activity-cover {
+    display: block; /* Ensure image is block when shown */
+}
+
+.last-played:not(.loading) #last-played-info {
+    display: flex; /* Ensure info is flex when shown */
+}
+
 
 #last-played-title{
     font-size: 14px;
@@ -386,6 +445,70 @@ header {
     display: flex;
     justify-content: center;
     flex-direction: column;
+}
+
+.main {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 400px;
+    margin-top: 10px;
+    width: 100%;
+    max-width: 1100px; /* Добавляем максимальную ширину */
+}
+
+header {
+    font-family: 'logofont';
+    font-size: 33px;
+    line-height: 1.2;
+    color: #b83c30;
+    margin-bottom: 50px;
+    width: 100%;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    position: relative;
+    padding: 0 20px;
+    box-sizing: border-box;
+    text-align: center; /* Центрируем содержимое */
+}
+
+.header-content {
+    display: flex;
+    justify-content: center; /* Центрируем основной контент */
+    align-items: flex-start;
+    width: 103%;
+    position: relative; /* Для позиционирования часов */
+}
+
+h1 {
+    margin: 0;
+    text-align: center;
+    position: relative;
+    left: -30px; /* Компенсируем смещение от часов */
+}
+
+.utc-clock-widget {
+    background: #1a1b22;
+    padding: 10px 15px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute; /* Абсолютное позиционирование */
+    right: 20px; /* Отступ справа */
+    top: 0;
+            font-family: "SN Pro";
+}
+
+#utc-time {
+    color: #E78A8A;
+    font-size: 20px;
+}
+
+.utc-label {
+        color: #ffffff;
+    font-size: 16px;
 }
 
 @media (max-width: 600px) {
