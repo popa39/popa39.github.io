@@ -511,6 +511,18 @@ h1 {
     font-size: 16px;
 }
 
+.button-preview a{
+    text-decoration: none;
+    color: white;
+    
+}
+
+.button-preview a:hover{
+    color: #99aab5;
+    
+}
+
+
 @media (max-width: 600px) {
     body {
         flex-direction: column;
