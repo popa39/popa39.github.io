@@ -329,6 +329,16 @@ header {
     gap: 20px;
 }
 
+.links a:hover{
+    color: #99aab5;
+}
+
+.links a{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+
 .avatar {
     width: 80px;
     height: 80px;
@@ -520,6 +530,16 @@ h1 {
 .button-preview a:hover{
     color: #99aab5;
     
+}
+
+
+.bottom{
+    align-items: center;
+    gap: 8px;
+}
+
+.bottom, a{
+    max-height: 31px;
 }
 
 
