@@ -1,0 +1,135 @@
+:root {
+  --notification-sfx: none;
+}
+
+#top_banner {
+  display: none;
+}
+.msgWrapper {
+  align-items: center !important;
+  padding: 5px;
+}
+.msgWrapper:before {
+  all: unset !important;
+}
+.allMessages {
+  display: block;
+  width: 100%;
+  background-color: #FFFFFF;
+  font-family: Tahoma, Serif;
+  font-size: 10pt;
+  padding-right:26px;
+  max-width: calc(100vw - 62px);
+  border: 1px solid black
+}
+.allMessages + #timestamp {
+  display: none !important;
+}
+.allMessages code {
+  font-size: 8pt;
+
+}
+.allMessages:after {
+  all: unset;
+  position: absolute;
+  top: 10px;
+  right: 3px;
+}
+.senderInfo {
+  color: #744577;
+  font-weight: bold;
+  font-family: Tahoma, serif;
+  position: relative;
+}
+.senderInfo:has(.mod) {
+  color: #800080;
+}
+.senderInfo:has(.verified_icon) {
+  color: #FF0000;
+}
+.senderInfo:after {
+  content: "\00a0";
+  display: inline-block;
+  height: 16px;
+  width: fit-content;
+max-height: 0;
+}
+.senderInfo .mod.badge, .senderInfo .verified_icon.devTag{
+  display: none;
+}
+.senderInfo:has(.mod):after {
+  content: "\00a0##\00a0 Mod\00a0";
+}
+.senderInfo:has(.verified_icon):after {
+  content: "\00a0##\00a0 Admin\00a0";
+}
+.senderInfo:has(.mod):before {
+  background-image: url(https://nightscape.xobyte.org/media/4chan-mod.png);
+}
+.senderInfo:has(.verified_icon):before {
+  background-image: url(https://nightscape.xobyte.org/media/4chan-dev.png);
+}
+.senderInfo + pre {
+  white-space: normal;
+}
+.senderInfo + pre blockquote {
+  all: unset;
+  display: block;
+  color: #789922 !important;
+}
+.senderInfo + pre a {
+  color: #00F !important;
+  text-decoration: underline;
+}
+.senderInfo + pre a p:before {
+  content: "\003E";
+  margin-right: 3px;
+  display: inline-block;
+}
+.senderInfo + pre blockquote p:before {
+  content: "\003E";
+  margin-right: 3px;
+  display: inline-block;
+}
+.senderInfo + pre s {
+  user-select: none;
+  text-decoration: none;
+  color: #000;
+  background-color: #000;
+}
+.senderInfo + pre s:active {
+  color: #FFF;
+}
+.senderInfo + pre img:not(.emoji) {
+  display: block;
+  box-sizing: content-box;
+  position: relative;
+  margin-bottom: 16px;
+  overflow: visible;
+  overflow-clip-margin: unset;
+}
+.senderInfo + pre img:not(.emoji):after {
+  content: attr(src);
+  display: block;
+  color: #555;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 100;
+  text-align: center;
+  min-width: 100%;
+  font-size: 8pt;
+}
+
+#input {
+    border-radius: 0;
+    background-color: #FFFFFF;
+    border-top: 1px solid black;
+}
+
+.badge {
+  display: none;
+}
+#input:empty::before {
+    content: "type fun";
+}

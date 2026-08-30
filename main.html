@@ -1,0 +1,96 @@
+
+<head>
+<link rel="stylesheet" href="style.css">
+<script src="https://iframe.chat/scripts/main.min.js"></script>
+<script>
+  chattable.initialize({
+    stylesheet: "chattable.css",
+  });
+</script>
+</head>
+
+<div id="mainpage">
+
+
+<script>
+async function loadTrack() {
+    const response = await fetch(
+        'https://lastfm-last-played.powerpcfan.xyz/yavamnespotify'
+    );
+
+    const data = await response.json();
+    const track = data.track;
+
+    const cover =
+        track.image.find(img => img.size === 'medium')?.['#text'];
+
+	    const isNowPlaying =
+        track["@attr"]?.nowplaying === "true";
+
+    document.getElementById('track').innerHTML = `
+		<div id="lastfm">
+        <div id="fminfo">
+            <div id=nowplayin>
+                <img src="${cover}" style="width:42px" alt="">
+        <p2 style="margin-left: 50px; padding-right:10px" class="now-playing">
+            ${isNowPlaying ? 'now playing' : ''}
+        </p2>
+
+        <p2 class="last-scrobbled" style="font-weight: bold">
+            ${!isNowPlaying ? `last scrobbled: ${track.date['#text']}` : ''}
+        </p2>
+            </div> 
+
+            <a style="padding-top:9px; padding-right:10px"> - <a>
+
+            <div id="titles">   
+            <p style="font-size:13px; font-weight: bold" title="${track.name}">${track.name}</p>
+            <p style="font-size:12px" title="${track.artist['#text']}">${track.artist['#text']}</p>
+            </div>
+            </a>
+        </div>
+		<div>
+    `;
+}
+
+loadTrack();
+</script>
+</div>
+
+
+
+<div class="parent">
+    <div class="div1">
+        <div id="statuscafediv">
+            <script src="https://status.cafe/current-status.js?name=misha"></script>
+        </div>
+    </div>
+    <div class="div2">
+        <div id="track"></div>
+    </div>
+        <div class="div3">
+                        <iframe src="https://iframe.chat/embed?chat=94624924" frameborder="0" style="border-right: var(--stroke);" id="chattable"></iframe>
+        </div>
+    <div class="div4">
+        <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum at fermentum nisl, et maximus tellus. In malesuada quam lectus, ut fringilla quam accumsan sit amet. In volutpat magna odio, sit amet molestie nunc accumsan eget. Aenean viverra dapibus sem, ut fermentum metus vehicula sed. Curabitur laoreet sed lorem ut elementum. In hac habitasse platea dictumst. Aliquam at euismod ipsum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.
+
+Vestibulum vel vulputate tellus. Donec sagittis, dui at sagittis tincidunt, urna odio vulputate velit, nec molestie nunc justo vel nulla. Maecenas diam urna, facilisis in fringilla sit amet, vestibulum vel augue. Integer pulvinar vel erat sed vulputate. Etiam feugiat arcu ut condimentum sodales. Aliquam non velit nec massa tincidunt mollis id in velit. Duis a leo ex.
+
+Nullam tincidunt ultricies mauris a tincidunt. Nulla mollis efficitur mollis. Phasellus in mattis arcu, et molestie neque. Aenean aliquet congue fermentum. Nam bibendum nulla sapien, eu sollicitudin odio tristique id. Sed consequat quis mauris non pellentesque. Duis lobortis laoreet suscipit. Praesent vel purus mauris. Donec eu justo metus. Morbi sagittis, leo eu euismod maximus, eros tellus dictum enim, vel sodales quam odio vitae neque. Mauris vel justo in mi venenatis finibus ac non dui. Donec in tortor pharetra, lobortis risus sed, semper ligula. Morbi mollis ex dolor, id mollis nisi luctus eu. Morbi vulputate lorem sed lacus tincidunt elementum.
+
+Etiam libero mi, placerat eu efficitur sed, ullamcorper a nisl. Donec fringilla purus sed porttitor gravida. Vestibulum sed egestas nisi. In neque odio, ornare et iaculis sed, finibus sit amet ligula. Fusce id purus vulputate, eleifend leo id, tincidunt arcu. Quisque erat justo, faucibus a ante ac, vehicula sagittis enim. Duis non mauris et lacus volutpat accumsan. Sed sit amet nibh non ante facilisis maximus.
+
+Interdum et malesuada fames ac ante ipsum primis in faucibus. Nunc egestas faucibus magna, mollis commodo libero condimentum placerat. Proin pellentesque ut quam vel porta. In rutrum est sed leo maximus, quis pellentesque est tempus. Mauris lacinia justo nibh, pellentesque semper risus dictum ut. Mauris maximus at purus vel pharetra. Fusce arcu magna, pulvinar fermentum pretium placerat, accumsan a justo. Nullam tempus auctor lectus, sed condimentum libero ultrices vehicula. </p>
+    </div>
+    <div class="div5">
+                <div id="linksdiv">
+	        <a href="https://steamcommunity.com/id/kunikai" target="_blank">steam</a>
+	        <a href="https://open.spotify.com/user/31hz6fnw73dx2t43aac6ci7avrpa" target="_blank">spotify</a>
+	        <a href="https://x.com/blyadeikorezhit" target="_blank">twitter</a>
+	        <a href="https://soundcloud.com/kunikai" target="_blank">soundcloud</a>
+            <a style="font-size: 20px;"  href="https://last.fm/user/yavamnespotify" target="_blank">lastfm</a>
+            <a href="https://www.youtube.com/watch?v=iP6XpLQM2Cs" target="_blank">tiktok</a>
+        </div>
+    </div>
+</div>
+    
